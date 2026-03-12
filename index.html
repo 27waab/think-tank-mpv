@@ -617,6 +617,208 @@
       text-align: center;
       margin-top: 6px;
     }
+
+    /* ══ PREMIUM SECTION ══ */
+    .premium-section {
+      flex-shrink: 0;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      overflow: hidden;
+    }
+
+    .premium-header {
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      gap: 10px;
+    }
+
+    .premium-header-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .premium-badge {
+      background: linear-gradient(135deg, #f5a623, #e8890a);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: 8px;
+      letter-spacing: .04em;
+      box-shadow: 0 0 10px rgba(245, 166, 35, .3);
+    }
+
+    .premium-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .premium-subtitle {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .premium-chevron {
+      font-size: 12px;
+      color: var(--muted);
+      transition: transform .25s;
+      flex-shrink: 0;
+    }
+
+    .premium-section.open .premium-chevron {
+      transform: rotate(180deg);
+    }
+
+    .premium-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease;
+    }
+
+    .premium-section.open .premium-body {
+      max-height: 600px;
+    }
+
+    .premium-inner {
+      padding: 0 16px 14px;
+    }
+
+    /* grid المستشارين المقفلين */
+    .locked-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      margin-bottom: 14px;
+    }
+
+    @media (min-width: 480px) {
+      .locked-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+
+    .locked-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+      opacity: .75;
+    }
+
+    .locked-card::after {
+      content: '🔒';
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      font-size: 11px;
+      opacity: .8;
+    }
+
+    .locked-avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+      filter: grayscale(.5);
+    }
+
+    .locked-name {
+      font-weight: 800;
+      font-size: 12px;
+      color: var(--text2);
+    }
+
+    .locked-role {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    /* CTA اشتراك */
+    .subscribe-cta {
+      background: linear-gradient(135deg, rgba(245, 166, 35, .12), rgba(245, 166, 35, .06));
+      border: 1px solid rgba(245, 166, 35, .25);
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .cta-text {}
+
+    .cta-title {
+      font-size: 13px;
+      font-weight: 900;
+      color: #f5c842;
+      margin-bottom: 3px;
+    }
+
+    .cta-desc {
+      font-size: 11px;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+
+    .cta-price {
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .price-amount {
+      font-size: 20px;
+      font-weight: 900;
+      color: #f5c842;
+      line-height: 1;
+    }
+
+    .price-label {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .cta-btn {
+      width: 100%;
+      margin-top: 10px;
+      background: linear-gradient(135deg, #f5a623, #cc7a00);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      transition: all .2s;
+      box-shadow: 0 0 16px rgba(245, 166, 35, .3);
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(245, 166, 35, .45);
+    }
+
+    .cta-btn:active {
+      transform: translateY(0);
+    }
   </style>
 </head>
 
@@ -668,6 +870,38 @@
     </div>
     <div class="hint">Enter للإرسال · Shift+Enter لسطر جديد</div>
   </footer>
+
+  <!-- PREMIUM LOCKED SECTION -->
+  <div class="premium-section" id="premiumSection">
+    <div class="premium-header" onclick="togglePremium()">
+      <div class="premium-header-right">
+        <span class="premium-badge">PRO</span>
+        <div>
+          <div class="premium-title">١٠ مستشارين إضافيين</div>
+          <div class="premium-subtitle">متاحون بالباقة الشهرية</div>
+        </div>
+      </div>
+      <span class="premium-chevron">▼</span>
+    </div>
+    <div class="premium-body">
+      <div class="premium-inner">
+        <div class="locked-grid" id="lockedGrid"></div>
+        <div class="subscribe-cta">
+          <div class="cta-text">
+            <div class="cta-title">🔓 افتح المجلس الكامل</div>
+            <div class="cta-desc">اسمع رأي ١٠ خبراء إضافيين في كل فكرة — خبراء زراعة، صحة، تصدير، عقارات والمزيد</div>
+          </div>
+          <div class="cta-price">
+            <div class="price-amount">٥٠٠٠</div>
+            <div class="price-label">جنيه / شهر</div>
+          </div>
+          <button class="cta-btn" onclick="alert('قريباً! سيتم تفعيل الاشتراك قريباً 🚀')">
+            اشترك الآن وافتح الجميع ✨
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     // ══════════════════════════════════════════════
@@ -839,6 +1073,42 @@
     }
 
     // ══════════════════════════════════════════════
+    //  PREMIUM — مستشارون مقفلون
+    // ══════════════════════════════════════════════
+    const LOCKED_ADVISORS = [
+      { name: "د. فاطمة الزهراء", role: "خبيرة الصحة والصيدلة", emoji: "🏥", color: "#ff6b6b" },
+      { name: "المهندس حمزة آدم", role: "خبير الزراعة والغذاء", emoji: "🌾", color: "#6bcb77" },
+      { name: "أسماء الشريف", role: "خبيرة العقارات", emoji: "🏠", color: "#ffd93d" },
+      { name: "د. طارق النيل", role: "خبير التصدير والاستيراد", emoji: "🚢", color: "#4ecdc4" },
+      { name: "هند عوض الله", role: "خبيرة السياحة والضيافة", emoji: "✈️", color: "#c77dff" },
+      { name: "الأستاذ كرار موسى", role: "خبير التعليم والتدريب", emoji: "📚", color: "#f4a261" },
+      { name: "د. رنا البشير", role: "خبيرة الاقتصاد الكلي", emoji: "📈", color: "#48cae4" },
+      { name: "ياسر حامد", role: "خبير الطاقة والبترول", emoji: "⚡", color: "#e9c46a" },
+      { name: "سارة الأمين", role: "خبيرة البيئة والاستدامة", emoji: "🌿", color: "#52b788" },
+      { name: "الأستاذ أيمن فضل", role: "خبير الإعلام والصحافة", emoji: "📰", color: "#ef233c" },
+    ]
+
+    function togglePremium() {
+      const section = document.getElementById("premiumSection")
+      section.classList.toggle("open")
+    }
+
+    function buildLockedGrid() {
+      const grid = document.getElementById("lockedGrid")
+      LOCKED_ADVISORS.forEach(a => {
+        const c = document.createElement("div")
+        c.className = "locked-card"
+        c.innerHTML = `
+      <div class="locked-avatar" style="background:${a.color}22">${a.emoji}</div>
+      <div>
+        <div class="locked-name">${a.name}</div>
+        <div class="locked-role">${a.role}</div>
+      </div>`
+        grid.appendChild(c)
+      })
+    }
+
+    // ══════════════════════════════════════════════
     //  BUILD UI
     // ══════════════════════════════════════════════
     function buildUI() {
@@ -868,6 +1138,7 @@
     }
 
     buildUI()
+    buildLockedGrid()
 
     // ══════════════════════════════════════════════
     //  قاعدة الصدق — مشتركة بين كل الـ agents
