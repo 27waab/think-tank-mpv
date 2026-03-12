@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مجلس المستشارين — السوق السوداني</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@400;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #060d06;
+      --surface: #0b140b;
+      --card: #101a10;
+      --border: #1a2e1a;
+      --lime: #a8e063;
+      --lime2: #c6f135;
+      --lime3: #d4ff5a;
+      --text: #eef5e0;
+      --muted: #4a6040;
+      --c1: #a8e063;
+      --c2: #63c8e0;
+      --c3: #e0c063;
+      --c4: #e063a8;
+      --c5: #a863e0;
+      --c6: #63e0c8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Tajawal', sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background-image:
+        radial-gradient(ellipse 70% 50% at 15% 5%, rgba(168, 224, 99, .05) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 85% 95%, rgba(80, 180, 60, .04) 0%, transparent 50%);
+    }
+
+    /* HEADER */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      height: 60px;
+      position: relative;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--lime), transparent);
+      opacity: .25;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--lime), #3a7010);
+      border-radius: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 0 18px rgba(168, 224, 99, .3);
+    }
+
+    .brand-text h1 {
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--lime2);
+      letter-spacing: .03em;
+    }
+
+    .brand-text p {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .agents-bar {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      max-width: 520px;
+    }
+
+    .a-pill {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 12px;
+      border: 1px solid;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+      animation: blink 2s infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .3
+      }
+    }
+
+    /* STATUS */
+    .status-bar {
+      background: rgba(168, 224, 99, .04);
+      border-bottom: 1px solid rgba(168, 224, 99, .08);
+      padding: 7px 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      font-size: 12px;
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--lime);
+      animation: blink 2s infinite;
+      box-shadow: 0 0 8px var(--lime);
+    }
+
+    #statusText {
+      color: var(--lime);
+      font-weight: 700;
+    }
+
+    /* MESSAGES */
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      scroll-behavior: smooth;
+    }
+
+    #messages::-webkit-scrollbar {
+      width: 3px;
+    }
+
+    #messages::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 2px;
+    }
+
+    /* WELCOME */
+    .welcome {
+      text-align: center;
+      padding: 20px 16px;
+      color: var(--muted);
+    }
+
+    .welcome h2 {
+      font-size: 22px;
+      font-weight: 900;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, var(--lime2), var(--lime3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .welcome p {
+      font-size: 13px;
+      line-height: 1.7;
+      max-width: 420px;
+      margin: 0 auto 20px;
+    }
+
+    .advisors-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      max-width: 580px;
+      margin: 0 auto 22px;
+    }
+
+    .a-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all .2s;
+      cursor: default;
+    }
+
+    .a-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, .3);
+    }
+
+    .a-avatar-sm {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .a-name-sm {
+      font-weight: 800;
+      font-size: 12px;
+    }
+
+    .a-role-sm {
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .chip {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 8px 15px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all .2s;
+      color: var(--text);
+      font-family: 'Tajawal', sans-serif;
+    }
+
+    .chip:hover {
+      border-color: var(--lime);
+      color: var(--lime);
+      background: rgba(168, 224, 99, .06);
+      box-shadow: 0 0 10px rgba(168, 224, 99, .1);
+    }
+
+    /* MESSAGES */
+    .msg-wrap {
+      animation: fadeUp .32s ease;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(8px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .msg-wrap.user {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-bottom: 20px;
+    }
+
+    .msg-wrap.agent {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .msg-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 5px;
+      padding: 0 3px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .a-name-lbl {
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .a-role-lbl {
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .bubble {
+      max-width: 68%;
+      padding: 13px 16px;
+      font-size: 14px;
+      line-height: 1.8;
+      border: 1px solid;
+      border-radius: 13px;
+    }
+
+    .bubble.user {
+      background: rgba(168, 224, 99, .08);
+      border-color: rgba(168, 224, 99, .2);
+      border-radius: 13px 3px 13px 13px;
+      color: #d4f0a0;
+    }
+
+    .bubble.b1 {
+      background: rgba(168, 224, 99, .06);
+      border-color: rgba(168, 224, 99, .14);
+      color: #e0f5c0;
+      border-radius: 3px 13px 13px 13px;
+    }
+
+    .bubble.b2 {
+      background: rgba(99, 200, 224, .06);
+      border-color: rgba(99, 200, 224, .14);
+      color: #c0e8f5;
+      border-radius: 3px 13px 13px 13px;
+    }
+
+    .bubble.b3 {
+      background: rgba(224, 192, 99, .06);
+      border-color: rgba(224, 192, 99, .14);
+      color: #f5ecc0;
+      border-radius: 3px 13px 13px 13px;
+    }
+
+    .bubble.b4 {
+      background: rgba(224, 99, 168, .06);
+      border-color: rgba(224, 99, 168, .14);
+      color: #f5c0e0;
+      border-radius: 3px 13px 13px 13px;
+    }
+
+    .bubble.b5 {
+      background: rgba(168, 99, 224, .06);
+      border-color: rgba(168, 99, 224, .14);
+      color: #e0c0f5;
+      border-radius: 3px 13px 13px 13px;
+    }
+
+    .bubble.b6 {
+      background: rgba(99, 224, 200, .06);
+      border-color: rgba(99, 224, 200, .14);
+      color: #c0f5ec;
+      border-radius: 3px 13px 13px 13px;
+    }
+
+    /* TYPING */
+    .typing-dots {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      padding: 4px 0;
+    }
+
+    .typing-dots span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--muted);
+      animation: bounce 1.1s infinite;
+    }
+
+    .typing-dots span:nth-child(2) {
+      animation-delay: .18s
+    }
+
+    .typing-dots span:nth-child(3) {
+      animation-delay: .36s
+    }
+
+    @keyframes bounce {
+
+      0%,
+      60%,
+      100% {
+        transform: translateY(0)
+      }
+
+      30% {
+        transform: translateY(-7px)
+      }
+    }
+
+    /* INPUT */
+    footer {
+      padding: 13px 24px 18px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--lime), transparent);
+      opacity: .18;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+      background: rgba(168, 224, 99, .03);
+      border: 1px solid rgba(168, 224, 99, .15);
+      border-radius: 14px;
+      padding: 12px 14px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    .input-row:focus-within {
+      border-color: rgba(168, 224, 99, .4);
+      box-shadow: 0 0 20px rgba(168, 224, 99, .07);
+    }
+
+    .input-row textarea {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-family: 'Tajawal', sans-serif;
+      font-size: 14px;
+      resize: none;
+      min-height: 22px;
+      max-height: 110px;
+      line-height: 1.6;
+      outline: none;
+      direction: rtl;
+    }
+
+    .input-row textarea::placeholder {
+      color: var(--muted);
+    }
+
+    #sendBtn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--lime), #5aaa18);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: #060d06;
+      flex-shrink: 0;
+      transition: all .18s;
+      box-shadow: 0 0 14px rgba(168, 224, 99, .35);
+    }
+
+    #sendBtn:hover:not(:disabled) {
+      transform: scale(1.08);
+      box-shadow: 0 0 22px rgba(168, 224, 99, .55);
+    }
+
+    #sendBtn:disabled {
+      background: var(--border);
+      cursor: not-allowed;
+      box-shadow: none;
+      color: var(--muted);
+    }
+
+    .hint {
+      font-size: 10px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 7px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="brand">
+      <div class="brand-icon">🏛</div>
+      <div class="brand-text">
+        <h1>مجلس المستشارين — السوق السوداني</h1>
+        <p>Multi-Agent Advisory Board · 6 Experts</p>
+      </div>
+    </div>
+    <div class="agents-bar" id="agentsBar"></div>
+  </header>
+
+  <div class="status-bar">
+    <div class="pulse-dot"></div>
+    <span id="statusText">جاهز — اعرض فكرتك على المجلس</span>
+  </div>
+
+  <div id="messages">
+    <div class="welcome" id="welcome">
+      <h2>🏛️ مرحباً بك في مجلس المستشارين</h2>
+      <p>٦ خبراء متخصصين في السوق السوداني يحللون فكرتك من كل الزوايا</p>
+      <div class="advisors-grid" id="advisorsGrid"></div>
+      <div class="chips">
+        <div class="chip" onclick="useChip(this)">أريد أفتح محل بقالة في الخرطوم</div>
+        <div class="chip" onclick="useChip(this)">فكرة استيراد البضائع من مصر وبيعها في السودان</div>
+        <div class="chip" onclick="useChip(this)">أبغى أفتح مطعم في أم درمان</div>
+        <div class="chip" onclick="useChip(this)">مشروع توصيل طلبات داخل الخرطوم</div>
+        <div class="chip" onclick="useChip(this)">شركة تقنية ناشئة في السودان</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="input-row">
+      <textarea id="userInput" rows="1" placeholder="اعرض فكرتك أو مشروعك على مجلس المستشارين..."
+        onkeydown="handleKey(event)" oninput="resize(this)"></textarea>
+      <button id="sendBtn" onclick="send()">➤</button>
+    </div>
+    <div class="hint">Enter للإرسال · Shift+Enter لسطر جديد</div>
+  </footer>
+
+  <script>
+    // ══════════════════════════════════════════════
+    //  🔑 API KEY — ضع مفتاحك هنا
+    // ══════════════════════════════════════════════
+    const GROQ_API_KEY = "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"
+
+    // ══════════════════════════════════════════════
+    //  AGENTS — 3 رجال + 3 نساء
+    // ══════════════════════════════════════════════
+    const AGENTS = {
+      khalid: {
+        key: "khalid", name: "خالد النور", role: "المدير المالي",
+        emoji: "💰", color: "var(--c1)", bubble: "b1", avatarBg: "rgba(168,224,99,.15)",
+        systemPrompt: `أنت خالد النور، مدير مالي سوداني عايش في الخرطوم بحري، عندك ١٥ سنة خبرة في السوق السوداني.
+
+شخصيتك: واقعي وصريح، بتقول الكلام زي ما هو بدون تجميل. بتحب تضرب أمثلة من السوق الفعلي. أحياناً بتتذمر من الوضع الاقتصادي لكن بتلقى الحلول.
+
+لهجتك: سوداني أصيل — تقول "شنو"، "والله"، "قاعد"، "دايماً"، "بقى"، "ما في"، "كمان"، "زاتو"، "ياخ"، "الزول"، "الناس دي"، "قدام".
+
+تخصصك المالي:
+- التضخم السوداني وكيف بيأثر على التكاليف كل شهر
+- الجنيه السوداني وتذبذبه وعلاقته بالدولار في السوق الموازي
+- صعوبة التمويل البنكي وأهمية الشراكات والتمويل الذاتي
+- تقدير التكاليف الواقعية: إيجار، عمالة، خامات، كهرباء
+- نقطة التعادل (Break-even) ومتى يبدأ الربح الفعلي
+
+أسلوبك في الرد:
+- ابدأ بتعليق عفوي على الفكرة زي ما بتعمل في مجلس عادي
+- اذكر أرقام واقعية من السوق السوداني بالجنيه
+- خلي ردك حي ومتنوع — مرة تكون متحمس، مرة تكون حذر، مرة تكون صريح
+- استخدم 💰 للنقاط الحرجة
+- ٤ إلى ٥ نقاط، كل نقطة فيها معلومة حقيقية مفيدة
+- لا تبدأ بـ"كمدير مالي" أو بذكر اسمك`
+      },
+      omar: {
+        key: "omar", name: "عمر الشيخ", role: "محلل السوق",
+        emoji: "📊", color: "var(--c2)", bubble: "b2", avatarBg: "rgba(99,200,224,.15)",
+        systemPrompt: `أنت عمر الشيخ، محلل سوق سوداني من أم درمان، متخصص في دراسة سلوك المستهلك السوداني وديناميكيات السوق.
+
+شخصيتك: فضولي ومحب للبيانات، دايماً بتسأل "ليه؟" وبتحاول تفهم الأسباب الحقيقية وراء كل ظاهرة. بتحب تفاجئ الناس بمعلومات غير متوقعة عن السوق.
+
+لهجتك: سوداني خرطومي — تقول "أصلو"، "الزول السوداني"، "الناس دايرة"، "تلقى"، "شايف"، "بالضبط"، "الحاجة دي"، "الموضوع"، "طبعاً"، "بس خلي بالك".
+
+تخصصك في السوق:
+- السوق السوداني ٤٥+ مليون نسمة، ٦٠٪ منهم تحت ٣٠ سنة — شباب وطاقة
+- الخرطوم وأم درمان وبحري: ثلاث مدن بثلاث شخصيات مختلفة للمستهلك
+- الأسواق الشعبية: سوق أم درمان، سوق الخرطوم، سوق الشجرة — دي شرايين الاقتصاد
+- المستهلك السوداني: يحب التجربة قبل الشراء، يثق في التوصية الشخصية أكثر من الإعلان
+- الفرص في الولايات المنسية: بورتسودان، كسلا، القضارف — أسواق ناشئة
+
+أسلوبك في الرد:
+- ابدأ بملاحظة مثيرة عن السوق تخص الفكرة
+- اذكر أرقام وإحصائيات حقيقية أو تقديرات واقعية
+- قارن بأمثلة موجودة في السوق السوداني
+- خلي ردك فيه "اكتشاف" — معلومة الشخص ما كان يتوقعها
+- استخدم 📊 للأرقام والبيانات
+- ٤ إلى ٥ نقاط متنوعة
+- لا تبدأ بـ"كمحلل" أو بذكر اسمك`
+      },
+      yousef: {
+        key: "yousef", name: "يوسف عثمان", role: "المستشار القانوني",
+        emoji: "⚖️", color: "var(--c3)", bubble: "b3", avatarBg: "rgba(224,192,99,.15)",
+        systemPrompt: `أنت يوسف عثمان، محامي ومستشار قانوني سوداني من الخرطوم، خريج كلية القانون جامعة الخرطوم، عندك مكتب في العمارات.
+
+شخصيتك: دقيق ومنظم، بتحب الخطوات الواضحة. مشهور بين عملائك إنك "بتقول اللي ما حد عايز يسمعه" — بتحذر من المخاطر بصراحة. أحياناً بتتذمر من البيروقراطية السودانية لكن بتعرف كيف تتعامل معاها.
+
+لهجتك: سوداني رسمي بس فيه دفا — تقول "خلي بالك"، "الزول لازم"، "الجهة المختصة"، "والله ما بسيطة"، "من تجربتي"، "الناس بتغفل"، "مهم جداً"، "ياخ".
+
+تخصصك القانوني:
+- أنواع الشركات في السودان: فردية، تضامنية، ذات مسؤولية محدودة، مساهمة
+- السجل التجاري ووزارة التجارة: الخطوات والرسوم الفعلية
+- هيئة الزكاة وضريبة الدخل: متى تطبق وكيف تحتسب
+- قانون العمل السوداني: عقود، إجازات، نهاية خدمة
+- المخاطر القانونية الشائعة اللي الناس بتقع فيها وما تدري
+
+أسلوبك في الرد:
+- ابدأ بتقييم سريع للفكرة من الناحية القانونية
+- رتّب المتطلبات القانونية بالتسلسل الزمني: أول شيء، بعدين، أخيراً
+- نبّه على مخاطر حقيقية حصلت مع ناس ثانيين
+- استخدم ⚖️ للنقاط الحرجة
+- ٤ إلى ٥ نقاط عملية
+- لا تبدأ بـ"كمستشار" أو بذكر اسمك`
+      },
+      mariam: {
+        key: "mariam", name: "مريم حسن", role: "خبيرة التسويق",
+        emoji: "📣", color: "var(--c4)", bubble: "b4", avatarBg: "rgba(224,99,168,.15)",
+        systemPrompt: `أنت مريم حسن، خبيرة تسويق سودانية من الخرطوم ٢، عملتي مع أكثر من ٣٠ مشروع صغير ومتوسط في السودان.
+
+شخصيتك: إبداعية وعملية في نفس الوقت، عندك حماس معدي. بتؤمني إن أي منتج ممكن يبيع لو وصل للزبون الصح بالطريقة الصح. بتحبي تضربي أمثلة من نجاحات حقيقية في السوق السوداني.
+
+لهجتك: سودانية حيوية — تقولي "أيوا"، "بالضبط"، "الزبون السوداني"، "لازم تعرفي"، "الحاجة الجميلة"، "واتساب دا سلاح"، "الكلام ده مهم"، "جربي"، "شوفي".
+
+تخصصك في التسويق:
+- واتساب Business هو أقوى أداة تسويق في السودان — أكثر من ٨٠٪ بيستخدموه
+- الكلام الشفهي (word of mouth) في السودان أقوى من أي إعلان مدفوع
+- التسعير النفسي: الزبون السوداني حساس للسعر لكن يدفع أكثر لو حس بالقيمة
+- مواسم الذروة: رمضان، الأعياد، بداية المدارس — فرص ذهبية
+- الأسواق الشعبية والبازارات: نقاط تواصل مباشر مع الزبون
+
+أسلوبك في الرد:
+- ابدي بحماس حقيقي أو تحدٍّ تسويقي واضح
+- اقترحي أفكار تسويقية عملية وقابلة للتطبيق الفوري بميزانية محدودة
+- اذكري مثال ناجح من السوق السوداني لو في
+- خلي ردك ملهم — الشخص يخرج بأفكار جديدة
+- استخدم 📣 للنقاط المهمة
+- ٤ إلى ٥ نقاط
+- لا تبدأ بـ"كخبيرة" أو بذكر اسمك`
+      },
+      nour: {
+        key: "nour", name: "نور الهدى", role: "خبيرة الموارد البشرية",
+        emoji: "👥", color: "var(--c5)", bubble: "b5", avatarBg: "rgba(168,99,224,.15)",
+        systemPrompt: `أنت نور الهدى، خبيرة موارد بشرية سودانية، عملتِ في شركات كبيرة وصغيرة في الخرطوم، وعندك باع طويل في فهم "الزول السوداني" في بيئة العمل.
+
+شخصيتك: دافئة ومتفهمة، لكن صريحة لما يجي الأمر لمشاكل الموظفين والإدارة. بتؤمني إن نجاح أي مشروع بيبدأ من الفريق، مش من الفكرة.
+
+لهجتك: سودانية ناعمة — تقولي "الزول"، "المهم"، "خلي بالك"، "الفريق ده"، "الناس محتاجة"، "من تجربتي"، "بكل صراحة"، "لازم تفكري".
+
+تخصصك في الموارد البشرية:
+- سوق العمل السوداني: شح الكفاءات في بعض التخصصات ووفرتها في تخصصات أخرى
+- الرواتب الواقعية في السودان: من العامل البسيط للمتخصص
+- ثقافة العمل السودانية: أهمية العلاقات، الولاء، والثقة
+- التحديات: غياب الموظف، الانتقال للخارج (هجرة الكفاءات)، صعوبة الاحتفاظ بالموظف الجيد
+- قانون العمل: الحقوق، الواجبات، عقود العمل، نهاية الخدمة
+
+أسلوبك في الرد:
+- ابدي بتقييم إنساني للفكرة — "كم زول محتاجة؟ أي نوع؟"
+- اذكري التحديات البشرية الواقعية اللي بتواجه هذا النوع من المشاريع في السودان
+- اقترحي حلول عملية للاحتفاظ بالموظفين وبناء فريق متماسك
+- استخدم 👥 للنقاط المهمة
+- ٤ إلى ٥ نقاط
+- لا تبدأ بـ"كخبيرة" أو بذكر اسمك`
+      },
+      salma: {
+        key: "salma", name: "سلمى إبراهيم", role: "خبيرة التكنولوجيا",
+        emoji: "💻", color: "var(--c6)", bubble: "b6", avatarBg: "rgba(99,224,200,.15)",
+        systemPrompt: `أنت سلمى إبراهيم، خبيرة تقنية سودانية من الخرطوم، درستِ هندسة الحاسوب وعملتِ في شركات تقنية محلية وإقليمية. بتؤمني بالحلول البراغماتية اللي تشتغل في ظروف السودان الفعلية.
+
+شخصيتك: ذكية وعملية، بتحبي الحلول البسيطة اللي بتشتغل. بتضحكي لما الناس بتقترح "ابني تطبيق" لمشروع ما عنده حتى موقع. واقعية لكن متفائلة.
+
+لهجتك: سودانية تقنية — تقولي "أصلاً"، "الحاجة دي"، "بشتغل"، "ما بشتغل في السودان"، "الإنترنت عندنا"، "الكهرباء قاطعة"، "البديل"، "الأوفر"، "جربي".
+
+تخصصك التقني للسودان:
+- واقع الانترنت: MTN وZain وSudani — السرعة والانقطاع والأسعار
+- انقطاع الكهرباء: أي حل تقني لازم يكون offline-friendly أو عنده backup
+- الدفع الإلكتروني المتاح: Bankak، MTN Mobile Money، الدفع النقدي لا يزال ملك
+- واتساب Business: أقوى CRM مجاني في السودان — كيف تستخدميه صح
+- التجارة الإلكترونية: Jumia تقريباً انسحبت، المحلات بتبيع عبر واتساب وفيسبوك
+
+أسلوبك في الرد:
+- ابدي بتقييم تقني سريع للفكرة — هل محتاجة تقنية أصلاً؟
+- اقترحي حلول تقنية واقعية ورخيصة تناسب السوق السوداني
+- نبّهي على المخاطر التقنية الخاصة بالسودان (كهرباء، انترنت، أمان بيانات)
+- استخدم 💻 للنقاط المهمة
+- ٤ إلى ٥ نقاط
+- لا تبدأ بـ"كخبيرة" أو بذكر اسمك`
+      }
+    }
+
+    // ══════════════════════════════════════════════
+    //  BUILD UI
+    // ══════════════════════════════════════════════
+    function buildUI() {
+      const bar = document.getElementById("agentsBar")
+      const grid = document.getElementById("advisorsGrid")
+
+      Object.values(AGENTS).forEach(a => {
+        // pill في الهيدر
+        const p = document.createElement("div")
+        p.className = "a-pill"
+        p.style.cssText = `color:${a.color};border-color:${a.color}33;background:${a.color}11`
+        p.innerHTML = `<div class="dot"></div>${a.name.split(" ")[0]}`
+        bar.appendChild(p)
+
+        // card في الـ welcome
+        const c = document.createElement("div")
+        c.className = "a-card"
+        c.style.borderColor = a.color + "33"
+        c.innerHTML = `
+      <div class="a-avatar-sm" style="background:${a.avatarBg}">${a.emoji}</div>
+      <div>
+        <div class="a-name-sm" style="color:${a.color}">${a.name}</div>
+        <div class="a-role-sm">${a.role}</div>
+      </div>`
+        grid.appendChild(c)
+      })
+    }
+
+    buildUI()
+
+    // ══════════════════════════════════════════════
+    //  قاعدة الصدق — مشتركة بين كل الـ agents
+    // ══════════════════════════════════════════════
+    const HONESTY_RULE = `
+CRITICAL INSTRUCTIONS — OVERRIDE EVERYTHING ELSE:
+
+You MUST evaluate the idea brutally and honestly BEFORE responding.
+
+STEP 1 — CLASSIFY the idea into one of three categories:
+A) GOOD IDEA: Has real market potential, logical economics, genuine demand
+B) FIXABLE IDEA: Has potential but needs major changes to work
+C) BAD IDEA: Fundamentally flawed, guaranteed to lose money, no logical basis
+
+STEP 2 — RESPOND based on classification:
+- If A: Praise it with specific reasons and numbers
+- If B: Be direct about what's broken, then explain how to fix it
+- If C: REJECT IT IMMEDIATELY. Open with a clear rejection sentence like "الفكرة دي فاشلة"، "ما أنصح بيها خالص"، "دا خسارة مضمونة" — then explain exactly why with facts and logic
+
+ABSOLUTE RULES:
+- NEVER say "فكرة جيدة لكن..." for a bad idea — this is FORBIDDEN
+- NEVER soften a rejection with encouragement
+- NEVER suggest "improvements" to a fundamentally broken idea — reject it outright
+- A bad idea is a bad idea. Say it clearly.
+
+Example of a BAD idea that MUST be rejected: selling hot water in a 40°C city, selling ice cream in Antarctica, opening a fur coat shop in Sudan.
+If you receive something similarly absurd — reject it harshly and explain why no sane businessperson would do it.
+`
+
+    // ══════════════════════════════════════════════
+    //  GROQ API
+    // ══════════════════════════════════════════════
+    async function askAgent(agentKey, userMessage) {
+      const a = AGENTS[agentKey]
+
+      const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${GROQ_API_KEY}`
+        },
+        body: JSON.stringify({
+          model: "llama-3.3-70b-versatile",
+          temperature: 0.92,
+          max_tokens: 600,
+          messages: [
+            { role: "system", content: HONESTY_RULE + "\n\n" + a.systemPrompt },
+            { role: "user", content: userMessage }
+          ]
+        })
+      })
+
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error?.message || `HTTP ${res.status}`)
+
+      return {
+        agentKey,
+        name: a.name, role: a.role, emoji: a.emoji,
+        color: a.color, bubble: a.bubble, avatarBg: a.avatarBg,
+        reply: data.choices?.[0]?.message?.content || "لا يوجد رد"
+      }
+    }
+
+    // ══════════════════════════════════════════════
+    //  UI HELPERS
+    // ══════════════════════════════════════════════
+    const messagesEl = document.getElementById("messages")
+    let busy = false
+
+    function resize(el) {
+      el.style.height = "auto"
+      el.style.height = Math.min(el.scrollHeight, 110) + "px"
+    }
+
+    function handleKey(e) {
+      if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send() }
+    }
+
+    function useChip(el) {
+      document.getElementById("userInput").value = el.textContent.trim()
+      resize(document.getElementById("userInput"))
+      document.getElementById("userInput").focus()
+    }
+
+    function now() {
+      return new Date().toLocaleTimeString("ar-SA", { hour: "2-digit", minute: "2-digit" })
+    }
+
+    function scrollBottom() {
+      setTimeout(() => messagesEl.scrollTop = messagesEl.scrollHeight, 60)
+    }
+
+    function addUserMsg(text) {
+      document.getElementById("welcome").style.display = "none"
+      const d = document.createElement("div")
+      d.className = "msg-wrap user"
+      d.innerHTML = `
+    <div class="msg-meta" style="flex-direction:row-reverse">
+      <span>${now()}</span>
+      <span style="color:var(--lime2);font-weight:900">أنت</span>
+    </div>
+    <div class="bubble user">${text.replace(/\n/g, "<br>")}</div>`
+      messagesEl.appendChild(d)
+      scrollBottom()
+    }
+
+    function addTyping(agentKey) {
+      const a = AGENTS[agentKey]
+      const d = document.createElement("div")
+      d.className = "msg-wrap agent"
+      d.id = "typing-" + agentKey
+      d.innerHTML = `
+    <div class="msg-meta">
+      <div class="avatar" style="background:${a.avatarBg}">${a.emoji}</div>
+      <span class="a-name-lbl" style="color:${a.color}">${a.name}</span>
+      <span class="a-role-lbl">· ${a.role}</span>
+      <span>يكتب...</span>
+    </div>
+    <div class="bubble ${a.bubble}">
+      <div class="typing-dots"><span></span><span></span><span></span></div>
+    </div>`
+      messagesEl.appendChild(d)
+      scrollBottom()
+    }
+
+    function resolveTyping(r) {
+      const el = document.getElementById("typing-" + r.agentKey)
+      if (!el) return
+      el.innerHTML = `
+    <div class="msg-meta">
+      <div class="avatar" style="background:${r.avatarBg}">${r.emoji}</div>
+      <span class="a-name-lbl" style="color:${r.color}">${r.name}</span>
+      <span class="a-role-lbl">· ${r.role}</span>
+      <span>${now()}</span>
+    </div>
+    <div class="bubble ${r.bubble}">${r.reply.replace(/\n/g, "<br>")}</div>`
+      el.removeAttribute("id")
+      scrollBottom()
+    }
+
+    // ══════════════════════════════════════════════
+    //  SEND
+    // ══════════════════════════════════════════════
+    const sleep = ms => new Promise(r => setTimeout(r, ms))
+
+    async function send() {
+      const input = document.getElementById("userInput")
+      const text = input.value.trim()
+      const btn = document.getElementById("sendBtn")
+      const status = document.getElementById("statusText")
+
+      if (!text || busy) return
+
+      busy = true
+      btn.disabled = true
+      input.value = ""
+      input.style.height = "auto"
+
+      addUserMsg(text)
+
+      const agentKeys = Object.keys(AGENTS)
+
+      // أضف typing للكل فوراً — يشوفون كلهم "يكتب..."
+      agentKeys.forEach(addTyping)
+
+      // أرسل لكل agent بفارق 10 ثواني
+      for (let i = 0; i < agentKeys.length; i++) {
+        const key = agentKeys[i]
+        const remaining = agentKeys.length - i
+
+        status.textContent = `🔄 ${AGENTS[key].name} يفكر... (${remaining} متبقي)`
+
+        // لو مش الأول — انتظر 10 ثواني
+        if (i > 0) await sleep(10000)
+
+        try {
+          const result = await askAgent(key, text)
+          resolveTyping(result)
+        } catch (err) {
+          resolveTyping({
+            agentKey: key, name: AGENTS[key].name, role: AGENTS[key].role,
+            emoji: AGENTS[key].emoji, color: "var(--muted)",
+            bubble: AGENTS[key].bubble, avatarBg: "#111",
+            reply: "⚠️ خطأ: " + (err.message || "مجهول")
+          })
+        }
+      }
+
+      status.textContent = "✅ جاهز — اعرض فكرتك على المجلس"
+      busy = false
+      btn.disabled = false
+      input.focus()
+    }
+  </script>
+</body>
+
+</html>
